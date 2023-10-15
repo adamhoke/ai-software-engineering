@@ -1,0 +1,63 @@
+A[User] --> B[Web Frontend: Django Views & Templates]
+
+subgraph Django Web Application
+
+    B --> C[URL Dispatcher]
+
+    C --> D[View Functions]
+
+    D --> |GET| E1[Retrieve User Info/Task List]
+
+    D --> |GET| E5[Retrieve Specific Task]
+
+    D --> |POST| E2[Create Task]
+
+    D --> |PUT| E3[Update Task]
+
+    D --> |DELETE| E4[Delete Task]
+
+end
+
+subgraph Django ORM
+
+    E1 --> F1[QuerySet: Filter & Retrieve User Info/Task List from DB]
+
+    E5 --> F5[QuerySet: Filter & Retrieve Specific Task from DB]
+
+    E2 --> F2[Model: Create New Task]
+
+    E3 --> F3[Model: Update Existing Task]
+
+    E4 --> F4[Model: Delete Task]
+
+end
+
+subgraph PostgreSQL Database
+
+    F1 --> G1[Users Table]
+
+    F1 --> G2[Tasks Table]
+
+    F5 --> G2
+
+    F2 --> G2
+
+    F3 --> G2
+
+    F4 --> G2
+
+end
+
+%% Comments:
+
+%% 1. User interacts with the web frontend built using Django's views and templates.
+
+%% 2. Django's URL Dispatcher routes the request to the appropriate view function based on the URL.
+
+%% 3. View functions handle the web request. They can retrieve user info, specific tasks, or the whole task list, and can also create, update, or delete tasks based on the request type.
+
+%% 4. Django ORM (Object-Relational Mapping) is used to interact with the database in an object-oriented manner.
+
+%% 5. PostgreSQL Database contains the users table for user info and the tasks table where all the to-do list tasks are stored.
+
+%% 6. Depending on the action (GET, POST, PUT, DELETE), the application interacts with the database to perform the desired operation.

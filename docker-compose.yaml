@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  todo:  # Django application service
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes: 
+      - ./app:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - todo_net
+
+  db:  # Postgres database service
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: todo_db
+    networks:
+      - todo_net
+
+  pgadmin:  # PGAdmin service for interfacing with the database
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@todo.com
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
+    ports:
+      - "8080:80"
+    networks:
+      - todo_net
+
+networks:
+  todo_net:
+    driver: bridge

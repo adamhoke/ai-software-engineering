@@ -1,0 +1,25 @@
+{
+    // Basic Python and Django setup.
+    "python.pythonPath": "path_to_your_virtualenv",
+    "python.linting.flake8Enabled": true,
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "path_to_black_executable",
+    "files.associations": {
+        "**/templates/*.html": "django-html",
+        "**/templates/*": "django-txt",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+    },
+
+    // Additional Flake8 configurations, including some common plugins.
+    "python.linting.flake8Args": [
+        "--max-line-length=88",  // Matches Black's default line length.
+        "--select=E,W,F",        // Only show errors, warnings, and flake8-flask warnings.
+        "--ignore=E501,W503",    // Commonly ignored Flake8 rules.
+        "--docstring-convention=google"  // Use Google's docstring formatting convention.
+    ],
+    "python.linting.flake8Plugins": ["flake8-bandit", "flake8-bugbear", "flake8-import-order"],
+
+    // Additional Black configurations.
+    "python.formatting.blackArgs": ["--line-length", "88"], // Matches Black's default line length.
+    "editor.formatOnSave": true  // Automatically format the document upon saving.
+}
