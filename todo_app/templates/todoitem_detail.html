@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ object.title }}</h2>
+<p>{{ object.description }}</p>
+<a href="{% url 'todoitem-update' object.pk %}">Update</a>
+<a href="{% url 'todoitem-delete' object.pk %}">Delete</a>
+{% endblock %}

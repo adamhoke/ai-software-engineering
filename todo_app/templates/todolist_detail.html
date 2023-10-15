@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ object.title }}</h2>
+<a href="{% url 'todolist-update' object.pk %}">Update</a>
+<a href="{% url 'todolist-delete' object.pk %}">Delete</a>
+{% endblock %}

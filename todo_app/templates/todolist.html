@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>ToDo Lists</h2>
+<a href="{% url 'todolist-create' %}">Create a new ToDo List</a>
+<ul>
+    {% for todolist in object_list %}
+        <li><a href="{% url 'todolist_detail' todolist.pk %}">{{ todolist.title }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

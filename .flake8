@@ -1,0 +1,22 @@
+# .flake8
+
+# Set the maximum allowed line length to 88 characters.
+# This matches the default line length used by Black.
+max-line-length = 88
+
+# Select which errors, warnings, and flake8-flask warnings to show.
+select = E,W,F
+
+# Ignore certain common Flake8 rules.
+ignore = E501,W503
+
+# Use Google's docstring formatting convention.
+docstring-convention = google
+
+# Plugins to use with Flake8.
+# These plugins provide additional checks for potential vulnerabilities (bandit),
+# common bugs (bugbear), and import ordering (import-order).
+plugins =
+    flake8-bandit,
+    flake8-bugbear,
+    flake8-import-order

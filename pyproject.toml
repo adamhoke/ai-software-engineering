@@ -1,0 +1,11 @@
+# pyproject.toml
+
+# Configure Black - The Uncompromising Code Formatter.
+
+[tool.black]
+# Set the maximum line length to 88 characters.
+# This matches the default line length used by both Black and our Flake8 configuration.
+line-length = 88
+
+# Automatically format the document upon saving.
+format-on-save = true
