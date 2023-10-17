@@ -1,8 +1,22 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 <h2>{{ object.title }}</h2>
 <p>{{ object.description }}</p>
-<a href="{% url 'todoitem-update' object.pk %}">Update</a>
-<a href="{% url 'todoitem-delete' object.pk %}">Delete</a>
+
+<!-- Display if the item is done or not -->
+{% if object.is_done %}
+    <p>Status: Done</p>
+{% else %}
+    <p>Status: Not Done</p>
+{% endif %}
+
+<!-- Display the due date -->
+<p>Due Date: {{ object.due_date }}</p>
+
+<!-- Button to toggle the status -->
+<form action="{% url 'todoitem-toggle_done' object.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Toggle Done Status">
+</form>
 {% endblock %}

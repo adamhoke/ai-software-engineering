@@ -23,6 +23,7 @@ class ToDoItem(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)  # Date and time when the ToDo item was created
     due_date = models.DateTimeField(default=datetime.datetime.now() + datetime.timedelta(weeks=1))  # Due date for the ToDo item, defaults to one week from creation
     todolist = models.ForeignKey(ToDoList, on_delete=models.CASCADE)  # ForeignKey relationship to ToDoList with cascading delete
+    is_done = models.BooleanField(default=False)  # Indicates whether the todo item is done or not
     
     def __str__(self):
         """ String representation of the ToDoItem """

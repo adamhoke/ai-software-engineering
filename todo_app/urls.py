@@ -12,4 +12,5 @@ urlpatterns = [
     path('items/<int:pk>/', ToDoItemDetailView.as_view(), name='todoitem_detail'),   
     path('items/<int:pk>/update/', ToDoItemUpdateView.as_view(), name='todoitem-update'),
     path('items/<int:pk>/delete/', ToDoItemDeleteView.as_view(), name='todoitem-delete'),
+    path('items/<int:pk>/toggle_done/', toggle_todo_done, name='todoitem-toggle_done'),
 ]

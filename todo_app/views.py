@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import ToDoList, ToDoItem
 
@@ -56,3 +57,11 @@ class ToDoItemDeleteView(DeleteView):
     model = ToDoItem
     template_name = 'todoitem_confirm_delete.html'
     success_url = '/todo/'  # Redirect to todo list after deletion
+
+# View to mark a todo item as done or not done
+def toggle_todo_done(request, pk):
+    """Toggle the completion status of a ToDo item."""
+    item = get_object_or_404(ToDoItem, pk=pk)
+    item.is_done = not item.is_done
+    item.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
