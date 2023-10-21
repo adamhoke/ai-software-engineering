@@ -2,7 +2,7 @@
 CREATE DATABASE tododb;
 
 # Create user with password
-CREATE USER todouser WITH PASSWORD 'password_here';
+CREATE USER todouser WITH PASSWORD 'todopassword';
 
 # Set default encoding, tsearch2 (for full-text search) and timezone
 ALTER ROLE todouser SET client_encoding TO 'utf8';

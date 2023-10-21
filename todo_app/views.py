@@ -41,7 +41,7 @@ class ToDoItemCreateView(CreateView):
     template_name = 'todoitem_form.html'
     success_url = '/todo/'  # Redirect to todo list after creating
 
-class ToDoListDetailView(UpdateView):
+class ToDoItemDetailView(UpdateView):
     model = ToDoList
     fields = ['title']
     template_name = 'todoitem_detail.html'
