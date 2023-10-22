@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import ToDoList, ToDoItem
+from django.shortcuts import get_object_or_404
 
 # For ToDoList
 class ToDoListView(ListView):
@@ -11,24 +12,24 @@ class ToDoListCreateView(CreateView):
     model = ToDoList
     fields = ['title']
     template_name = 'todolist_form.html'
-    success_url = '/todo/'  # Redirect to todo list after creating
+    success_url = '/todo/lists'  # Redirect to todo list after creating
 
-class ToDoListDetailView(UpdateView):
+class ToDoListDetailView(DetailView):
     model = ToDoList
     fields = ['title']
     template_name = 'todolist_detail.html'
-    success_url = '/todo/'  # Redirect to todo list after updating
+    success_url = '/todo/lists'  # Redirect to todo list after updating
 
 class ToDoListUpdateView(UpdateView):
     model = ToDoList
     fields = ['title']
     template_name = 'todolist_form.html'
-    success_url = '/todo/'  # Redirect to todo list after updating
+    success_url = '/todo/lists'  # Redirect to todo list after updating
 
 class ToDoListDeleteView(DeleteView):
     model = ToDoList
     template_name = 'todolist_confirm_delete.html'
-    success_url = '/todo/'  # Redirect to todo list after deletion
+    success_url = '/todo/lists'  # Redirect to todo list after deletion
 
 # For ToDoItem
 class ToDoItemView(ListView):
@@ -41,7 +42,7 @@ class ToDoItemCreateView(CreateView):
     template_name = 'todoitem_form.html'
     success_url = '/todo/'  # Redirect to todo list after creating
 
-class ToDoItemDetailView(UpdateView):
+class ToDoItemDetailView(DetailView):
     model = ToDoList
     fields = ['title']
     template_name = 'todoitem_detail.html'

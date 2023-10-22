@@ -2,6 +2,17 @@
 
 {% block content %}
 <h2>{{ object.title }}</h2>
-<a href="{% url 'todolist-update' object.pk %}">Update</a>
-<a href="{% url 'todolist-delete' object.pk %}">Delete</a>
+<h4>To-Do Items:</h4>
+<ul>
+    {% for todoitem in object_list %}
+        <li><a href="{% url 'todoitem_detail' todoitem.pk %}">{{ todoitem.title }}</a></li>
+    {% endfor %}
+</ul>
+<br />
+<h4>Edit List:</h4>
+<li><a href="{% url 'todolist-update' object.pk %}">Update</a></li>
+<li><a href="{% url 'todolist-delete' object.pk %}">Delete</a></li>
+<br />
+<h4>Return:</h4>
+<li><a href="{% url 'index' %}">Home</a></li>
 {% endblock %}

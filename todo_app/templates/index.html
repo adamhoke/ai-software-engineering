@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h4>Welcome to the To-Do List Application!</h4>
+<br />
+<h4> Actions: </h4>
+<ul>
+    <li><a href="{% url 'todolists' %}">View To-Do Lists</a></li>
+    <li><a href="{% url 'todolist-create' %}">Create To-Do Lists</a></li>
+</ul>
+{% endblock %}
