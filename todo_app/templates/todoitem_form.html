@@ -6,4 +6,8 @@
     {{ form.as_p }}
     <input type="submit" value="Submit">
 </form>
+<h4>Return</h4>
+<ul>    
+    <li><a href="{% url 'todolist_detail' object.todolist.pk %}">{{ object.todolist.title }}</a></li>    
+</ul>
 {% endblock %}

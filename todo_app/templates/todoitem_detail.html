@@ -2,21 +2,32 @@
 
 {% block content %}
 <h2>{{ object.title }}</h2>
-<p>{{ object.description }}</p>
 
 <!-- Display if the item is done or not -->
+<p>Name: {{ object.title }}</p>
+<p>Description: {{ object.description }}</p>
+<p>Created on: {{ object.created_date|date:"F j, Y, P" }}</p>
+<p>Due date: {{ object.due_date|date:"F j, Y, P" }}</p>
 {% if object.is_done %}
     <p>Status: Done</p>
 {% else %}
     <p>Status: Not Done</p>
 {% endif %}
 
-<!-- Display the due date -->
-<p>Due Date: {{ object.due_date }}</p>
-
 <!-- Button to toggle the status -->
 <form action="{% url 'todoitem-toggle_done' object.pk %}" method="post">
     {% csrf_token %}
     <input type="submit" value="Toggle Done Status">
 </form>
+<br />
+<h4>Edit Item:</h4>
+<ul>    
+    <li><a href="{% url 'todoitem-update' object.pk %}">Update</a></li>
+    <li><a href="{% url 'todoitem-delete' object.pk %}">Delete</a></li>
+</ul>
+<br />
+<h4>Return</h4>
+<ul>    
+    <li><a href="{% url 'todolist_detail' object.todolist.pk %}">{{ object.todolist.title }}</a></li>    
+</ul>
 {% endblock %}

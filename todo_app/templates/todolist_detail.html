@@ -4,15 +4,27 @@
 <h2>{{ object.title }}</h2>
 <h4>To-Do Items:</h4>
 <ul>
-    {% for todoitem in object_list %}
-        <li><a href="{% url 'todoitem_detail' todoitem.pk %}">{{ todoitem.title }}</a></li>
+    {% for todoitem in todolist.todoitem_set.all %}
+        <li>
+            <a href="{% url 'todoitem_detail' todoitem.pk %}">{{todoitem.title}}</a></p>
+        </li>
+    {% empty %}
+        <li>No To-Do items for this list.</li>
     {% endfor %}
 </ul>
 <br />
-<h4>Edit List:</h4>
-<li><a href="{% url 'todolist-update' object.pk %}">Update</a></li>
-<li><a href="{% url 'todolist-delete' object.pk %}">Delete</a></li>
+<h4>New Item</h4>
+<ul>    
+    <li><a href="{% url 'todoitem-create' %}">Create To-Do Item</a></li>    
+</ul>
 <br />
-<h4>Return:</h4>
-<li><a href="{% url 'index' %}">Home</a></li>
+<h4>Edit List:</h4>
+<ul>    
+    <li><a href="{% url 'todolist-update' object.pk %}">Update</a></li>
+    <li><a href="{% url 'todolist-delete' object.pk %}">Delete</a></li>
+</ul>
+<h4>Return</h4>
+<ul>    
+    <li><a href="{% url 'todolists' %}">All To-Do Lists</a></li>    
+</ul>
 {% endblock %}

@@ -5,6 +5,8 @@
 <ul>
     {% for todolist in object_list %}
         <li><a href="{% url 'todolist_detail' todolist.pk %}">{{ todolist.title }}</a></li>
+    {% empty %}
+        <li>No To-Do lists yet</li>
     {% endfor %}
 </ul>
 <br />
@@ -12,7 +14,4 @@
 <ul>    
     <li><a href="{% url 'todolist-create' %}">Create To-Do List</a></li>    
 </ul>
-<br />
-<h4>Return:</h4>
-<li><a href="{% url 'index' %}">Home</a></li>
 {% endblock %}

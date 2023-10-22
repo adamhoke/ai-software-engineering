@@ -3,7 +3,12 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    Are you sure you want to delete "{{ object.title }}"?
+    <p>Are you sure you want to delete "{{ object.title }}"?</p>
+    <br />
     <input type="submit" value="Confirm">
 </form>
+<h4>Return</h4>
+<ul>    
+    <li><a href="{% url 'todolist_detail' object.todolist.pk %}">{{ object.todolist.title }}</a></li>    
+</ul>
 {% endblock %}
