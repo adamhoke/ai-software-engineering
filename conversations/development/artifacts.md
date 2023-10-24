@@ -133,9 +133,11 @@ We must implement the create, edit, and delete features of the to-do list.
 
 ### LLM Tool:
 
+ChatGPT-4 Code Interpreter for coding tasks.
 
 ### Prompt Pattern:
 
+PQD pattern for coding tasks.
 
 ### Exact Input:
 
@@ -156,9 +158,11 @@ We must implement the create, edit, and delete features of the todo list items, 
 
 ### LLM Tool:
 
+ChatGPT-4 Code Interpreter for coding tasks.
 
 ### Prompt Pattern:
 
+PQD pattern for coding tasks.
 
 ### Exact Input:
 
@@ -179,9 +183,11 @@ We must add extra features of due date and the ability to mark the item as done.
 
 ### LLM Tool:
 
+ChatGPT-4 Code Interpreter for coding tasks.
 
 ### Prompt Pattern:
 
+PQD pattern for coding tasks.
 
 ### Exact Input:
 

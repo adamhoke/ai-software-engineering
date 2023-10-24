@@ -4,7 +4,7 @@ A Visual Studio Code (VSCode) settings file is a configuration file that allows 
 
 ### LLM Tool:
 
-ChatGPT-4 Code interpreter, since these settings are basically code.
+ChatGPT-4 Code Interpreter, since these settings are basically code.
 
 ### Prompt Pattern:
 
@@ -136,7 +136,7 @@ A ``.flake8` configuration file is used to define and customize rules for the fl
 
 ### LLM Tool:
 
-ChatGPT-4 Code interpreter, since these are basically code.
+ChatGPT-4 Code Interpreter, since these are basically code.
 
 ### Prompt Pattern:
 
@@ -250,7 +250,7 @@ Python virtualenv is a tool used to create isolated Python environments, ensurin
 
 ### LLM Tool:
 
-This is code so ChatGPT-4 Code interpreter.
+This is code so ChatGPT-4 Code Interpreter.
 
 ### Prompt Pattern:
 
@@ -280,7 +280,7 @@ Docker Compose is a tool for defining and running multi-container Docker applica
 
 ### LLM Tool:
 
-Since YAML _is_ code, we will use ChatGPT-4 Code interpreter.
+Since YAML _is_ code, we will use ChatGPT-4 Code Interpreter.
 
 ### Prompt Pattern:
 
