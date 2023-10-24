@@ -242,5 +242,278 @@ The code for the flak8 file would be placed in he root directory of the project 
 ### Files:
 `.flake8` & `pyproject.toml`
 
+---------------------------------------------------------------------------------------
 
+### Phase Task:
 
+Python virtualenv is a tool used to create isolated Python environments, ensuring that a project has its own set of dependencies and won't conflict with system-wide libraries. A bash script to activate a virtual environment in the current directory and install dependencies in one command would be nice.
+
+### LLM Tool:
+
+This is code so ChatGPT-4 Code interpreter.
+
+### Prompt Pattern:
+
+No Pattern even needed. Actually, even asking about that subject would generate a bash script. Since Bash scripts aren’t very logically complex (usually), they are the easiest programmatic thing you can ask an LLM to do. 
+
+### Exact Input:
+
+Write a bash script that would activate a virtual environment in the current directory and install dependencies from a requirements.txt file
+
+### Exact Output:
+
+```source ./venv/bin/activate && pip install -r requirements.txt.```
+
+### Usage Result:
+
+This will be placed in a script and the permissions set to executable using `$ chmod +x`. Using AI-powered LLM tools to quickly generate Bash scripts for redundant tasks is an absolute no-brainer for any engineer.
+
+### File:
+
+`activate.sh`
+
+---------------------------------------------------------------------------------------
+
+### Phase Task:
+
+Docker Compose is a tool for defining and running multi-container Docker applications. It uses a configuration file, usually named `docker-compose.yml`, to define and configure the application's services. This setup simplifies local development by allowing developers to run multiple service containers related to their application without installing the services directly on their machines; furthermore, the containers can later be re-deployed to container platforms like Kubernetes or Amazon ECS for production.
+
+### LLM Tool:
+
+Since YAML _is_ code, we will use ChatGPT-4 Code interpreter.
+
+### Prompt Pattern:
+
+PQD Pattern for code.
+
+### Exact Input:
+
+```
+You are an expert full-stack software engineer who knows containerization well. You are working on a Django web application with a Postgres backend. With this application you are also going to use PGAdmin for interfacing with the database.
+
+Create a Docker Compose YAML file with the following specifications:
+- Use version 3.8.
+- Define three services: todo, db, and pgadmin.
+- The todo service:
+  - Build from the current directory with a Dockerfile named Dockerfile.
+  - Mount the current directory to /app in the container.
+  - Expose and bind port 8000.
+  - Depend on the db service and only start after db is healthy.
+  - Use the network todo_net.
+  - Have an entrypoint that:
+  - Runs Django migrations for an app named todo_app.
+  - Creates a Django superuser with username admin, email admin@example.com, and password password.
+  - Starts a Django development server on 0.0.0.0:8000.
+- The db service:
+  - Use the postgres:latest image.
+  - Set environment variables for username todouser, password todopassword, and database name tododb.
+  - Expose and bind port 5432.
+  - Use the network todo_net.
+  - Have a health check that tests if the database is ready for connections using the pg_isready command with the previously mentioned username and database name.
+- The pgadmin service:
+  - Use the dpage/pgadmin4:latest image.
+  - Set environment variables for default email admin@todo.com and password adminpassword.
+  - Expose and bind port 8080 to 80 in the container.
+  - Use the network todo_net.
+  - Define a network named todo_net that uses the bridge driver.
+
+Comment each line of code. For the Postgres and PGAdmin services just use publicly available images off of Dockerhub. Provide a few different solutions and explain the rational behind each.
+```
+
+### Exact Output:
+
+```
+Alright, let's create the docker-compose.yml file as per your specifications. I'll provide you with two solutions and then discuss the rationale behind each.
+
+Solution 1: Using Command-based Entrypoint for the todo service
+```
+
+```yaml
+# Using version 3.8 of the Docker Compose specification
+version: '3.8'
+
+# Define the services to be created
+services:
+
+  # Define the todo service
+  todo:
+    # Build from the current directory using the specified Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Mount the current directory to /app inside the container
+    volumes:
+      - .:/app
+    # Expose and bind port 8000
+    ports:
+      - "8000:8000"
+    # Set the dependency on the db service
+    depends_on:
+      db:
+        condition: service_healthy
+    # Use the specified network
+    networks:
+      - todo_net
+    # Define the entrypoint for the service
+    entrypoint: >
+      bash -c "python manage.py migrate todo_app &&
+               echo \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'password')\" | python manage.py shell &&
+               python manage.py runserver 0.0.0.0:8000"
+
+  # Define the db service
+  db:
+    # Use the specified image from Dockerhub
+    image: postgres:latest
+    # Set the required environment variables
+    environment:
+      POSTGRES_USER: todouser
+      POSTGRES_PASSWORD: todopassword
+      POSTGRES_DB: tododb
+    # Expose and bind port 5432
+    ports:
+      - "5432:5432"
+    # Use the specified network
+    networks:
+      - todo_net
+    # Define the health check for the service
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U todouser -d tododb"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  # Define the pgadmin service
+  pgadmin:
+    # Use the specified image from Dockerhub
+    image: dpage/pgadmin4:latest
+    # Set the required environment variables
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@todo.com
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
+    # Expose and bind port 8080 to 80 inside the container
+    ports:
+      - "8080:80"
+    # Use the specified network
+    networks:
+      - todo_net
+
+# Define the networks to be used
+networks:
+  todo_net:
+    driver: bridge
+```
+
+```
+Rationale for Solution 1:
+We use a command-based entrypoint for the todo service. This is a straightforward way to define the operations sequentially within the entrypoint using bash.
+The depends_on condition ensures that the todo service only starts after the db service is healthy.
+The health check for the db service uses the pg_isready command to ensure that the database is ready for connections.
+Solution 2: Using a Script-based Entrypoint for the todo service
+In this solution, instead of directly using commands in the entrypoint, we'd use a separate script (entrypoint.sh) that contains the operations:
+
+entrypoint.sh:
+```
+
+```bash
+#!/bin/bash
+
+# Run Django migrations for the todo_app
+python manage.py migrate todo_app
+
+# Create a Django superuser
+echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('admin', 'admin@example.com', 'password')" | python manage.py shell
+
+# Start the Django development server
+python manage.py runserver 0.0.0.0:8000
+```
+
+```
+Make sure to give execute permission to the script using chmod +x entrypoint.sh.
+
+Then, in the docker-compose.yml:
+```
+
+```yaml
+# ... (same as above)
+
+  # Define the todo service
+  todo:
+    # ... (same as above)
+    # Use the script as the entrypoint
+    entrypoint: /app/entrypoint.sh
+
+# ... (rest of the file is the same as above)
+```
+
+```
+Rationale for Solution 2:
+Separating the entrypoint logic into a script makes the docker-compose.yml file cleaner and more readable.
+It's easier to manage and modify the script than editing the docker-compose.yml file directly.
+This approach is more modular and maintainable in the long run.
+Final Thoughts:
+Both solutions achieve the desired outcome. Solution 1 is more compact, with everything contained within the docker-compose.yml. Solution 2, however, offers better maintainability and clarity by separating the logic into a dedicated script. Depending on your preferences and project complexity, you can choose the approach that suits you best.
+```
+
+### Usage Result:
+
+We ended up using solution #1 since we didn't have to create another file and update the Dockerfile.
+
+### File:
+
+`docker-compose.yaml`
+
+---------------------------------------------------------------------------------------
+
+### Phase Task:
+
+Create the Dockerfile that will be used with the compose service "todo" (the other services will use publicly available container images off Dockerhub)
+
+### LLM Tool:
+
+Once again, this is code so we will use ChatGPT-4 Code Interpreter.
+
+### Prompt Pattern:
+
+For code, the PQD pattern.
+
+### Exact Input:
+
+```
+You are an expert full-stack software engineer who knows containerization well. You are working on a Django web application with a Postgres backend. With this application you are also going to use PGAdmin for interfacing with the database.
+
+Write a Dockerfile that:
+- Uses the official Python 3.8 slim image as the base.
+- Sets the environment variable PYTHONUNBUFFERED to 1 for Django.
+- Sets the working directory in the container to /app.
+- Copies the contents of the current directory into the container's /app directory.
+- Installs the Python packages listed in requirements.txt without using the cache."
+
+Comment each line of code. For the Postgres and PGAdmin services just use publicly available images off of Dockerhub. Provide a few different solutions and explain the rational behind each.
+```
+
+### Exact Output:
+
+```dockerfile
+# Use an official Python runtime as the parent image
+FROM python:3.8-slim
+
+# Set environment variables for Django
+ENV PYTHONUNBUFFERED 1
+
+# Create and set the working directory
+WORKDIR /app
+
+# Copy the current directory contents into the container
+COPY . /app
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+```
+
+### Usage Result:
+
+This is the dockerfile used by the "todo" service of docker compose
+
+### File:
+
+`Dockerfile`
