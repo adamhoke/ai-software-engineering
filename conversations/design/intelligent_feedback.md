@@ -46,6 +46,6 @@ You can download all of the technologies listed above from their respective webs
 I hope this report is helpful. Please let me know if you have any questions.
 ```
 
-### Result:
+### Usage Result:
 
 This information could be exported to CSV and shared, or imported a into a knowledge base or wiki such as confluence.

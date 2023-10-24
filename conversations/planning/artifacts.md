@@ -179,7 +179,7 @@ Feature-Based Task Division:
 
 ### Exact Output:
 
-```
+```md
 |Sprint #|Task Name|Estimated Scrum Points|Estimated time (in days)|
 
 |-------|-------|-------|-------|

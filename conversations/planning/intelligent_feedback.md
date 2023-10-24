@@ -177,6 +177,6 @@ Great choice! Solution 2 will distribute responsibility for entire features to d
 I hope this provides a clear roadmap for your Django To-Do List Application's development. If you need any adjustments or have other questions, please let me know!
 ```
 
-### Result:
+### Usage Result:
 
 We will use this finnnal solution to create the Scrum Estimations in the artifacts for this phase (see artifacts.md in this directory).

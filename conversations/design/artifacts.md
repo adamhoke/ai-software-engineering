@@ -155,7 +155,7 @@ Descriptive ERD Outline:
 
 ChatGPT-4's enhanced application flow:
 
-```
+```mmd
 ### Enhanced Application Flow:
 
 graph TD
@@ -234,6 +234,10 @@ Improvements:
 
 2. **Added "Users Table" in the PostgreSQL Database**. This will store user-specific information, allowing for individual user accounts and personal task lists.
 ```
+
+### Usage Result:
+
+This is not an true ERD since LLM tools can't create one, however this would be used to quickly design an ERD using a diagramming tool.
 
 ### File:
 
