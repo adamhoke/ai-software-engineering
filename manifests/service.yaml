@@ -1,0 +1,14 @@
+# app-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo
+  namespace: todo
+spec:
+  selector:
+    app: todo
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000 # Adjust if your app uses a different port
+  type: LoadBalancer # Use LoadBalancer for cloud environments or NodePort for on-premises. WIll behave like Nodeport if no LoadBalance present
