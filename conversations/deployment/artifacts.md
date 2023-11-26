@@ -234,7 +234,10 @@ Notes:
 
 This setup should provide a good starting point for deploying your Python web application with a PostgreSQL backend on Kubernetes.
 ```
+
 ### Usage Result:
+As you can see, everythinig needed to deploy the basic app to a local Kubernetes cluster was created, although the namespace holders `my-app` and a few other values needed to be changed. Overall the process worked. For Kubernetes there is also a command line tool called `kubectl` that will allow you to generate thee types of files for an entire deployment and service with a few commands. Another possibility would have been to ask the LLM to generate the `kubectl` commands to generate all of these files, then manually modify them as we had to do here.
 
 
 ### Files:
+Everything in the `\manifests` folder.
